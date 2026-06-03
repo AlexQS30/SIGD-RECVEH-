@@ -4,6 +4,8 @@ import com.sigd.recveh.enums.TipoUbicacion;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import org.locationtech.jts.geom.Point;
 
 import java.time.OffsetDateTime;
@@ -25,7 +27,6 @@ public class UbicacionHecho {
     @JoinColumn(name = "incidente_id", nullable = false)
     private Incidente incidente;
 
-    // Tipo Point de JTS — se almacena como geometry(Point,4326) en PostGIS
     @Column(columnDefinition = "geometry(Point, 4326)", nullable = false)
     private Point punto;
 
@@ -33,7 +34,9 @@ public class UbicacionHecho {
     private String direccionReferencia;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "tipo_ubicacion", nullable = false, length = 20)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
+    @Column(name = "tipo_ubicacion", nullable = false,
+            columnDefinition = "tipo_ubicacion")
     @Builder.Default
     private TipoUbicacion tipoUbicacion = TipoUbicacion.OCURRENCIA;
 

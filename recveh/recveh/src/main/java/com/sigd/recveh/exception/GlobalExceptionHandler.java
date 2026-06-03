@@ -61,10 +61,15 @@ public class GlobalExceptionHandler {
     // Error genérico no controlado
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> handleGeneral(Exception ex) {
+        ex.printStackTrace(); // ← imprime stack trace en consola del servidor
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of(
-            "timestamp", OffsetDateTime.now(),
-            "status", 500,
-            "error", "Error interno del servidor"
-        ));
+        "timestamp", OffsetDateTime.now(),
+        "status", 500,
+        "error", "Error interno del servidor",
+        "detalle", ex.getMessage() != null
+            ? ex.getMessage()
+            : ex.getClass().getName()
+    ));
+
     }
 }

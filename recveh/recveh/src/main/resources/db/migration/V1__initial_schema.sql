@@ -214,7 +214,7 @@ INSERT INTO usuario (
     username, password_hash, nombre_completo, email, rol
 ) VALUES (
     'admin',
-    '$2a$12$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+    '$2a$12$/oNfCsQhnXkBcuoZLO7Fe.y.zFdAw2AuEEgrmaCweGyMd.a.yf/YO',
     'Administrador del Sistema',
     'admin@sigd-recveh.pe',
     'ADMIN'

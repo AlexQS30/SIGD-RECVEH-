@@ -5,7 +5,9 @@ import com.sigd.recveh.enums.TipoDelito;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -30,11 +32,15 @@ public class Incidente {
     private String numeroCaso;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "tipo_delito", nullable = false, length = 20)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
+    @Column(name = "tipo_delito", nullable = false,
+            columnDefinition = "tipo_delito")
     private TipoDelito tipoDelito;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
+    @Column(nullable = false,
+            columnDefinition = "estado_incidente")
     @Builder.Default
     private EstadoIncidente estado = EstadoIncidente.ABIERTO;
 
@@ -58,11 +64,21 @@ public class Incidente {
     @JoinColumn(name = "usuario_responsable_id")
     private Usuario usuarioResponsable;
 
-    @OneToMany(mappedBy = "incidente", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "incidente",
+               cascade = CascadeType.ALL,
+               orphanRemoval = true)
+    @Builder.Default
+    private List<IncidenteVehiculo> incidenteVehiculos = new ArrayList<>();
+
+    @OneToMany(mappedBy = "incidente",
+               cascade = CascadeType.ALL,
+               orphanRemoval = true)
     @Builder.Default
     private List<UbicacionHecho> ubicaciones = new ArrayList<>();
 
-    @OneToMany(mappedBy = "incidente", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "incidente",
+               cascade = CascadeType.ALL,
+               orphanRemoval = true)
     @Builder.Default
     private List<Diligencia> diligencias = new ArrayList<>();
 
