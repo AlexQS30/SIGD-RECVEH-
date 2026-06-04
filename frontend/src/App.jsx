@@ -7,6 +7,7 @@ import MapaPage from './pages/MapaPage';
 import VehiculosPage from './pages/VehiculosPage';
 import IncidentesPage from './pages/IncidentesPage';
 import './App.css';
+import UsuariosPage from './pages/UsuariosPage';
 
 export default function App() {
   return (
@@ -26,6 +27,9 @@ export default function App() {
           } />
           <Route path="/incidentes" element={
             <PrivateRoute><IncidentesPage /></PrivateRoute>
+          } />
+          <Route path="/usuarios" element={
+            <PrivateRoute><UsuariosPage /></PrivateRoute>
           } />
         </Routes>
       </BrowserRouter>

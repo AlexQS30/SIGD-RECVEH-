@@ -2,10 +2,11 @@ import { NavLink } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
 const menu = [
-  { path: '/dashboard',  icon: '📊', label: 'Dashboard'   },
-  { path: '/mapa',       icon: '🗺️',  label: 'Mapa'        },
-  { path: '/incidentes', icon: '📋', label: 'Incidentes'  },
-  { path: '/vehiculos',  icon: '🚗', label: 'Vehículos'   },
+  { path: '/dashboard',  icon: '📊', label: 'Dashboard'  },
+  { path: '/mapa',       icon: '🗺️',  label: 'Mapa'       },
+  { path: '/incidentes', icon: '📋', label: 'Incidentes' },
+  { path: '/vehiculos',  icon: '🚗', label: 'Vehículos'  },
+  { path: '/usuarios',   icon: '👥', label: 'Usuarios'   },
 ];
 
 export default function Sidebar() {
@@ -13,6 +14,7 @@ export default function Sidebar() {
 
   return (
     <aside style={styles.sidebar}>
+
       {/* Logo */}
       <div style={styles.logo}>
         <span style={styles.logoIcon}>🚔</span>
@@ -25,9 +27,9 @@ export default function Sidebar() {
       {/* Usuario */}
       <div style={styles.userInfo}>
         <div style={styles.userAvatar}>
-          {user?.nombreCompleto?.charAt(0) || 'U'}
+          {user?.nombreCompleto?.charAt(0)?.toUpperCase() || 'U'}
         </div>
-        <div>
+        <div style={styles.userTexto}>
           <div style={styles.userName}>{user?.nombreCompleto}</div>
           <div style={styles.userRol}>{user?.rol}</div>
         </div>
@@ -54,6 +56,7 @@ export default function Sidebar() {
       <button onClick={logout} style={styles.logoutBtn}>
         🚪 Cerrar Sesión
       </button>
+
     </aside>
   );
 }
@@ -65,11 +68,11 @@ const styles = {
     background: 'linear-gradient(180deg, #0d1b2a, #1b2838)',
     display: 'flex',
     flexDirection: 'column',
-    padding: '0',
     position: 'fixed',
     left: 0, top: 0, bottom: 0,
     zIndex: 100,
-    fontFamily: 'system-ui, sans-serif'
+    fontFamily: 'system-ui, sans-serif',
+    overflowY: 'auto'
   },
   logo: {
     display: 'flex',
@@ -105,12 +108,19 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     fontWeight: '700',
-    fontSize: '16px'
+    fontSize: '16px',
+    flexShrink: 0
+  },
+  userTexto: {
+    overflow: 'hidden'
   },
   userName: {
     color: 'white',
     fontSize: '13px',
-    fontWeight: '600'
+    fontWeight: '600',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
   },
   userRol: {
     color: 'rgba(255,255,255,0.5)',
@@ -149,6 +159,7 @@ const styles = {
     color: 'rgba(255,255,255,0.7)',
     cursor: 'pointer',
     fontSize: '13px',
-    fontWeight: '500'
+    fontWeight: '500',
+    transition: 'all 0.2s'
   }
 };
