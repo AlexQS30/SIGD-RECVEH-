@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Sidebar from '../components/layout/Sidebar';
 import api from '../api/axios';
+import BotonesReporte from '../components/shared/BotonesReporte';
 
 const ESTADOS = ['ACTIVO','ROBADO','HURTADO','RECUPERADO','EN_INVESTIGACION'];
 
@@ -160,6 +161,7 @@ export default function VehiculosPage() {
               onChange={e => setBusqueda(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && buscarPorPlaca()}
             />
+            <BotonesReporte />
             <button style={s.btnSearch} onClick={buscarPorPlaca}>
               🔍 Buscar
             </button>
